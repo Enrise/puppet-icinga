@@ -62,7 +62,7 @@ define service {
 define service {
     host_name           <%= @host_name %>
     service_description APT_Updates
-    check_command       check_nrpe!check_apt!noarg
+    check_command       check_nrpe!check_apt!-c "(.*)security(.*)"!noarg
     use                 <%= @use %>
 }
 <% end -%>
