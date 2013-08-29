@@ -17,8 +17,8 @@ class icinga::plugins {
   icinga::plugin { 'check_yum':
     nrpe_cfg => 'icinga/nrpe_cfg/nrpe-check_yum.cfg.erb',
   }
-  icinga::plugin { 'check_apt':
-    nrpe_cfg => 'icinga/nrpe_cfg/nrpe-check_apt.cfg.erb',
+  icinga::plugin { 'check_apt_enrise':
+    nrpe_cfg => 'icinga/nrpe_cfg/nrpe-check_apt_enrise.cfg.erb',
   }
   icinga::plugin { 'check_ageandcontent.pl': }
 
