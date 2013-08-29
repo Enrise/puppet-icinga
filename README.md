@@ -1,6 +1,6 @@
 # Puppet module: icinga
 
-This is a Puppet module for icinga based on the second generation layout ("NextGen") of Example42 Puppet Modules.
+This is a Puppet module for icinga based on the second generation layout ("NextGen") of Example42 Puppet Modules. Modified by Enrise
 
 Made by Alessandro Franceschi / Lab42
 
