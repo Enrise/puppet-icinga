@@ -23,7 +23,7 @@ fi;
 pending=$(echo "$updates" | cut -d ";" -f 2)
 if [ "$pending" != "0" ]; then
 	regular=$(echo "$updates" | cut -d ";" -f 1)
-    echo "$pending security update(s) pending, $regular total update(s)."
+    echo "$pending security update(s) pending, $regular regular update(s))."
     exit $STATUS_CRITICAL
 fi
 
