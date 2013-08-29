@@ -22,8 +22,8 @@ fi;
 # Check for pending security updates.
 pending=$(echo "$updates" | cut -d ";" -f 2)
 if [ "$pending" != "0" ]; then
-	regular=$(echo "$updates" | cut -d ";" -f 1)
-    echo "$pending security update(s) pending, $regular regular update(s))."
+	total=$(echo "$updates" | cut -d ";" -f 1)
+    echo "$pending security update(s) pending, $total total update(s)."
     exit $STATUS_CRITICAL
 fi
 
