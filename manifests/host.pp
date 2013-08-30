@@ -18,55 +18,75 @@ define icinga::host (
   $host_parent   = '',
   $ensure        = 'present',
   $template      = 'icinga/host.erb',
-  $hostgroups    = 'all'
+  $hostgroups    = 'all',
+  $os_type       = 'linux',
+  $dedicated     = false,
   ) {
-
-  include icinga::target
-
-  case $::icinga_filemode {
-
-    'concat': {
-      if $ensure == 'present' {
-        @@concat { "${icinga::target::customconfigdir}/hosts/${name}.cfg":
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0644',
-          tag     => "icinga_check_${icinga::target::magic_tag}",
-        }
-        @@concat::fragment { "icinga-${name}":
-          target  => "${icinga::target::customconfigdir}/hosts/${name}.cfg",
-          order   => 01,
-          notify  => Service['icinga'],
-          content => template( $template ),
-          tag     => "icinga_check_${icinga::target::magic_tag}",
-        }
-      }
-    }
-
-    'pupmod-concat': {
-      if $ensure == 'present' {
-        @@concat_build { "icinga-${::hostname}":
-          target => "${icinga::target::customconfigdir}/hosts/${name}.cfg",
-          order  => ['*.tmp'],
-        }
-        @@concat_fragment { "icinga-${::hostname}+200_${name}.tmp":
-          content => template( $template ),
-        }
-      }
-    }
-
-    default: {
-      @@file { "${icinga::target::customconfigdir}/hosts/${name}.cfg":
-        ensure  => $ensure,
-        mode    => '0644',
-        owner   => 'root',
-        group   => 'root',
-        notify  => Service['icinga'],
-        content => template( $template ),
-        tag     => "icinga_check_${icinga::target::magic_tag}",
-      }
-    }
-
+  
+  if ($dedicated == false) {
+    include icinga::target
   }
-
+  
+  if ($os_type == 'linux') {
+	  case $::icinga_filemode {
+	
+	    'concat': {
+	      if $ensure == 'present' {
+	        @@concat { "${icinga::target::customconfigdir}/hosts/${name}.cfg":
+	          owner   => 'root',
+	          group   => 'root',
+	          mode    => '0644',
+	          tag     => "icinga_check_${icinga::target::magic_tag}",
+	        }
+	        @@concat::fragment { "icinga-${name}":
+	          target  => "${icinga::target::customconfigdir}/hosts/${name}.cfg",
+	          order   => 01,
+	          notify  => Service['icinga'],
+	          content => template( $template ),
+	          tag     => "icinga_check_${icinga::target::magic_tag}",
+	        }
+	      }
+	    }
+	
+	    'pupmod-concat': {
+	      if $ensure == 'present' {
+	        @@concat_build { "icinga-${::hostname}":
+	          target => "${icinga::target::customconfigdir}/hosts/${name}.cfg",
+	          order  => ['*.tmp'],
+	        }
+	        @@concat_fragment { "icinga-${::hostname}+200_${name}.tmp":
+	          content => template( $template ),
+	        }
+	      }
+	    }
+	
+	    default: {
+	      @@file { "${icinga::target::customconfigdir}/hosts/${name}.cfg":
+	        ensure  => $ensure,
+	        mode    => '0644',
+	        owner   => 'root',
+	        group   => 'root',
+	        notify  => Service['icinga'],
+	        content => template( $template ),
+	        tag     => "icinga_check_${icinga::target::magic_tag}",
+	      }
+	    }
+	
+	  }
+  }
+  
+  if ($os_type == 'windows') {
+    notify { "MAKING WINDOWS HOST ${fqdn} - ${name}": }
+    @@file { "${icinga::target::customconfigdir}/hosts/${name}.cfg":
+      ensure  => 'present',
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      notify  => Service['icinga'],
+      content => template( $template ),
+      tag     => "icinga_check_${icinga::target::magic_tag}",
+    }
+  }
+  
+  
 }
