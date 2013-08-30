@@ -76,7 +76,6 @@ define icinga::host (
   }
   
   if ($os_type == 'windows') {
-    notify { "MAKING WINDOWS HOST ${fqdn} - ${name}": }
     @@file { "${icinga::target::customconfigdir}/hosts/${name}.cfg":
       ensure  => 'present',
       mode    => '0644',
