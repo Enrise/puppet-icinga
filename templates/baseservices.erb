@@ -119,12 +119,14 @@ define service {
     use                 <%= @use %>
 }
 
+<% if scope.lookupvar("osfamily") != "RedHat" -%>
 define service {
     host_name           <%= @host_name %>
     service_description Swap_Util
     check_command       check_nrpe!check_sar_swap_util!noarg
     use                 <%= @use %>
 }
+<% end -%>
 
 define service {
     host_name           <%= @host_name %>
