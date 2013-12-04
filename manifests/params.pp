@@ -38,10 +38,6 @@ class icinga::params {
     default                   => '/etc/httpd/conf.d/icinga-web.conf',
   }
 
-  $apache_icingaweb_target = $::operatingsystem ? {
-    default   => '/etc/icinga-web/apache2.conf',
-  }
-
   $db_host_icingaweb = 'localhost'
   $db_name_icingaweb = 'icinga_web'
   $db_user_icingaweb = 'icinga_web'
@@ -105,7 +101,7 @@ class icinga::params {
   $use_ssl = true
 
   $cachedir = $::operatingsystem ? {
-    /(?i:RedHat|Centos|Scientific|Fedora)/ => '/var/spool/icinga/',
+    /(?i:RedHat|Centos|Scientific|Fedora)/ => '/var/spool/icinga',
     default                                => '/var/cache/icinga',
   }
 

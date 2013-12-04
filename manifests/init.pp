@@ -222,7 +222,6 @@ class icinga (
   $config_file_owner_icingaweb = params_lookup( 'config_file_owner_icingaweb' ),
   $config_file_group_icingaweb = params_lookup( 'config_file_group_icingaweb' ),
   $apache_icingaweb_config     = params_lookup( 'apache_icingaweb_config' ),
-  $apache_icingaweb_target     = params_lookup( 'apache_icingaweb_target' ),
   $db_host_icingaweb           = params_lookup( 'db_host_icingaweb' ),
   $db_name_icingaweb           = params_lookup( 'db_name_icingaweb' ),
   $db_user_icingaweb           = params_lookup( 'db_user_icingaweb' ),
@@ -291,7 +290,7 @@ class icinga (
   $log_file                    = params_lookup( 'log_file' ),
   $manage_repos                = params_lookup( 'manage_repos' ),
   $enable_debian_repo_legacy   = params_lookup( 'enable_debian_repo_legacy' ),
-  $template_settings_templates = params_lookup( 'tempalte_settings_templates' ),
+  $template_settings_templates = params_lookup( 'template_settings_templates' ),
   $template_commands_general   = params_lookup( 'template_commands_general' ),
   $template_commands_extra     = params_lookup( 'template_commands_extra' ),
   $template_commands_special   = params_lookup( 'template_commands_special' ),
@@ -482,7 +481,7 @@ class icinga (
     #Concat <<| tag == "icinga_hostgroup_${icinga::target::magic_tag}" |>>
     #Concat::Fragment <<| tag == "icinga_hostgroup_${icinga::target::magic_tag}" |>>
     include icinga::hostgroup_setup
-    File <<| tag == "icinga_hostgroup_${icinga::target::magic_tag}" |>>
+    File <<| tag == "icinga_hostgroup_${icinga::target::magic_hostgroup}" |>>
   }
 
   ### Include custom class if $my_class is set

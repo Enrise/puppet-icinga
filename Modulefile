@@ -1,5 +1,5 @@
 name 'example42-icinga'
-version '2.0.10'
+version '2.1.3'
 
 author 'Alessandro Franceschi'
 license 'Apache2'
@@ -13,4 +13,4 @@ dependency 'example42/nrpe', '>=2.0.0'
 dependency 'example42/apt', '>=0.1.9'
 dependency 'example42/mysql', '>=2.0.0'
 dependency 'example42/apache', '>=2.0.0'
-dependency 'ripienaar/concat', '>=0.0.1'
+dependency 'puppetlabs/concat', '>=0.0.1'
